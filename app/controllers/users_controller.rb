@@ -13,6 +13,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def authors
+    @users = User.authors
+    @users_count = @users.count
+    @users = @users.order(created_at: :desc).offset(
+      params[:offset] || 0).limit(params[:limit] || 20
+    )
+  end
+
   private
 
   def user_params

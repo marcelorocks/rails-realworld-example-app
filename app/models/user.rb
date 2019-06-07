@@ -18,6 +18,8 @@ class User < ApplicationRecord
                        presence: true,
                        allow_blank: false
 
+  scope :authors, -> { where('articles_count > 0') }
+
   def generate_jwt
     JWT.encode({ id: id,
                  exp: 60.days.from_now.to_i },
